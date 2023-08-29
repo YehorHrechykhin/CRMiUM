@@ -1,0 +1,85 @@
+<odoo>
+    <record id="view_developer_tree" model="ir.ui.view">
+        <field name="name">developer.tree</field>
+        <field name="model">developer</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="global_identification"/>
+                <field name="name" optional="hide"/>
+                <field name="type" optional="hide"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="address"/>
+                <field name="birthdate"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_developer_form" model="ir.ui.view">
+        <field name="name">developer.form</field>
+        <field name="model">developer</field>
+        <field name="arch" type="xml">
+            <form string="Developer">
+                <group>
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="phone" attrs="{'invisible': [('type', '=', 'out-stuff')]}"/>
+                    <field name="email"/>
+                    <field name="address"/>
+                    <field name="birthdate"/>
+                    <field name="company_id"/>
+                </group>
+                <group>
+                    <field name="global_identification"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_developer_search" model="ir.ui.view">
+        <field name="name">developer.search</field>
+        <field name="model">developer</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="type"/>
+                <group expand="0">
+                    <filter name="group_type" string="Type" domain="[]"
+                            context="{'group_by': 'type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_developer_tree" model="ir.actions.act_window">
+        <field name="name">Developers List</field>
+        <field name="res_model">developer</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Create a new developer</p>
+        </field>
+    </record>
+
+    <record id="action_developer_form" model="ir.actions.act_window">
+        <field name="name">Create New Developer</field>
+        <field name="res_model">developer</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <menuitem
+            id="developer_tree_menu"
+            name="View Developers"
+            parent="developers_management_menu_root"
+            action="action_developer_tree"
+    />
+
+    <menuitem
+            id="developer_form_menu"
+            name="Add Developer"
+            parent="developers_management_menu_root"
+            action="action_developer_form"
+    />
+
+</odoo>
